@@ -7,19 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using paint;
 
-namespace TZI_4
+namespace Modelling_signals
 {
     public partial class MainForm : Form
     {
         public MainForm()
         {
             InitializeComponent();
+            comboBoxSwitchMetod.SelectedItem = "NRZ";
         }
 
         
 
-        private void buttonStart_Click(object sender, EventArgs e)
+        private void resizeGraphics()
         {
             pictureBox.Size = new Size(textBoxBinNumber.Text.Length * 40 + 20, 80);
             pictureBox.Invalidate();
@@ -42,12 +44,14 @@ namespace TZI_4
             if (char.IsNumber(e.KeyChar) ||  e.KeyChar >= 'A' && e.KeyChar <= 'F')
             {
                 textBoxBinNumber.Text += toBin[e.KeyChar];
+                resizeGraphics();
                 return;
             }
             if (e.KeyChar == '\b')
             {
                 if(textBoxBinNumber.Text.Length > 0)
                 textBoxBinNumber.Text = textBoxBinNumber.Text.Remove(textBoxBinNumber.Text.Length - 4, 4);
+                resizeGraphics();
                 return;
             }
 
@@ -56,45 +60,21 @@ namespace TZI_4
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            //Graphics graphics = pictureBox.CreateGraphics();
-            Pen graphic = new Pen(Color.FromArgb(255, 0, 0));
-            Pen axis = new Pen(Color.FromArgb(0, 0, 0));
-            Font font = new Font("Arials", 14);
-            SolidBrush brush = new SolidBrush(Color.FromArgb(0, 0, 0));
-            axis.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            paintGraphics paint = new paintGraphics(e, textBoxBinNumber.Text);
+            paint.paintAxis();
 
-            int position = 10;
+            if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZ") paint.paintNRZ();
+            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "diff. NRZ") paint.paintDiffNRZ();
+            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZI") paint.paintNRZI();
+            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "RZ") paint.paintRZ();
+            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "AMI") paint.paintAMI();
+            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "Manchester") paint.paintManchester();
+            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "2B1Q") paint.paint2B1Q();
+        }
 
-            if (textBoxBinNumber.Text.Length != 0)
-            {
-                e.Graphics.DrawLine(axis, 0, 30, textBoxBinNumber.Text.Length * 40 + 20, 30);
-                e.Graphics.DrawLine(axis, position, 0, position, 60);
-            }
-
-            for(int i = 0; i < textBoxBinNumber.Text.Length; i++)
-            {
-                e.Graphics.DrawLine(axis, position, 0, position, 60);
-                if (textBoxBinNumber.Text[i] == '0')
-                {
-                    e.Graphics.DrawLine(graphic, position, 30, position, 50);
-                    e.Graphics.DrawLine(graphic, position, 50, position + 20, 50);
-                    e.Graphics.DrawLine(graphic, position + 20, 50, position + 20, 30);
-                    e.Graphics.DrawString("0", font, brush, position + 10, 60);
-                }
-                else
-                {
-                    e.Graphics.DrawLine(graphic, position, 30, position, 10);
-                    e.Graphics.DrawLine(graphic, position, 10, position + 20, 10);
-                    e.Graphics.DrawLine(graphic, position + 20, 10, position + 20, 30);
-                    e.Graphics.DrawString("1", font, brush, position + 10, 60);
-
-                }
-                e.Graphics.DrawLine(graphic, position + 20, 30, position + 40, 30);
-
-                position += 40;
-                
-            }
-
+        private void comboBoxSwitchMetod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            resizeGraphics();
         }
     }
 }

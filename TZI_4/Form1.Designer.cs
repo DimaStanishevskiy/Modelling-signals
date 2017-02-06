@@ -1,4 +1,4 @@
-﻿namespace TZI_4
+﻿namespace Modelling_signals
 {
     partial class MainForm
     {
@@ -31,8 +31,8 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.textBoxHexNumber = new System.Windows.Forms.TextBox();
             this.textBoxBinNumber = new System.Windows.Forms.TextBox();
-            this.buttonStart = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBoxSwitchMetod = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -41,7 +41,7 @@
             // 
             this.pictureBox.Location = new System.Drawing.Point(3, 3);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(609, 121);
+            this.pictureBox.Size = new System.Drawing.Size(763, 121);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
@@ -59,18 +59,8 @@
             this.textBoxBinNumber.Location = new System.Drawing.Point(169, 11);
             this.textBoxBinNumber.Name = "textBoxBinNumber";
             this.textBoxBinNumber.ReadOnly = true;
-            this.textBoxBinNumber.Size = new System.Drawing.Size(377, 22);
+            this.textBoxBinNumber.Size = new System.Drawing.Size(452, 22);
             this.textBoxBinNumber.TabIndex = 2;
-            // 
-            // buttonStart
-            // 
-            this.buttonStart.Location = new System.Drawing.Point(552, 11);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonStart.TabIndex = 3;
-            this.buttonStart.Text = "Start";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
             // panel1
             // 
@@ -78,16 +68,34 @@
             this.panel1.Controls.Add(this.pictureBox);
             this.panel1.Location = new System.Drawing.Point(12, 39);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(615, 129);
+            this.panel1.Size = new System.Drawing.Size(769, 129);
             this.panel1.TabIndex = 4;
+            // 
+            // comboBoxSwitchMetod
+            // 
+            this.comboBoxSwitchMetod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSwitchMetod.FormattingEnabled = true;
+            this.comboBoxSwitchMetod.Items.AddRange(new object[] {
+            "NRZ",
+            "diff. NRZ",
+            "NRZI",
+            "RZ",
+            "AMI",
+            "Manchester ",
+            "2B1Q"});
+            this.comboBoxSwitchMetod.Location = new System.Drawing.Point(627, 11);
+            this.comboBoxSwitchMetod.Name = "comboBoxSwitchMetod";
+            this.comboBoxSwitchMetod.Size = new System.Drawing.Size(154, 24);
+            this.comboBoxSwitchMetod.TabIndex = 5;
+            this.comboBoxSwitchMetod.SelectedIndexChanged += new System.EventHandler(this.comboBoxSwitchMetod_SelectedIndexChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 178);
+            this.ClientSize = new System.Drawing.Size(793, 178);
+            this.Controls.Add(this.comboBoxSwitchMetod);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.textBoxBinNumber);
             this.Controls.Add(this.textBoxHexNumber);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -105,8 +113,8 @@
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TextBox textBoxHexNumber;
         private System.Windows.Forms.TextBox textBoxBinNumber;
-        private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox comboBoxSwitchMetod;
     }
 }
 

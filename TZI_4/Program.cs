@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TZI_4
+namespace Modelling_signals
 {
     static class Program
     {
