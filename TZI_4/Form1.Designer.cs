@@ -77,11 +77,11 @@
             this.comboBoxSwitchMetod.FormattingEnabled = true;
             this.comboBoxSwitchMetod.Items.AddRange(new object[] {
             "NRZ",
-            "diff. NRZ",
-            "NRZI",
+            "NRZI(1)",
+            "NRZI(0)",
             "RZ",
             "AMI",
-            "Manchester ",
+            "Manchester",
             "2B1Q"});
             this.comboBoxSwitchMetod.Location = new System.Drawing.Point(627, 11);
             this.comboBoxSwitchMetod.Name = "comboBoxSwitchMetod";

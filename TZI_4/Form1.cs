@@ -64,8 +64,8 @@ namespace Modelling_signals
             paint.paintAxis();
 
             if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZ") paint.paintNRZ();
-            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "diff. NRZ") paint.paintDiffNRZ();
-            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZI") paint.paintNRZI();
+            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZI(1)") paint.paintNRZI(true);
+            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZI(0)") paint.paintNRZI(false);
             else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "RZ") paint.paintRZ();
             else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "AMI") paint.paintAMI();
             else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "Manchester") paint.paintManchester();
