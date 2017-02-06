@@ -19,14 +19,6 @@ namespace Modelling_signals
             comboBoxSwitchMetod.SelectedItem = "NRZ";
         }
 
-        
-
-        private void resizeGraphics()
-        {
-            pictureBox.Size = new Size(textBoxBinNumber.Text.Length * 40 + 20, 80);
-            pictureBox.Invalidate();
-        }
-
         private void textBoxBinNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             Dictionary<char, string> toBin = new Dictionary<char, string>()
@@ -44,14 +36,12 @@ namespace Modelling_signals
             if (char.IsNumber(e.KeyChar) ||  e.KeyChar >= 'A' && e.KeyChar <= 'F')
             {
                 textBoxBinNumber.Text += toBin[e.KeyChar];
-                resizeGraphics();
                 return;
             }
             if (e.KeyChar == '\b')
             {
                 if(textBoxBinNumber.Text.Length > 0)
                 textBoxBinNumber.Text = textBoxBinNumber.Text.Remove(textBoxBinNumber.Text.Length - 4, 4);
-                resizeGraphics();
                 return;
             }
 
@@ -60,7 +50,8 @@ namespace Modelling_signals
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            paintGraphics paint = new paintGraphics(e, textBoxBinNumber.Text);
+            
+            paintGraphics paint = new paintGraphics(e, textBoxBinStaffNumber.Text.Length > 0 ? textBoxBinStaffNumber.Text : textBoxBinNumber.Text);
             paint.paintAxis();
 
             if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZ") paint.paintNRZ();
@@ -72,9 +63,43 @@ namespace Modelling_signals
             else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "2B1Q") paint.paint2B1Q();
         }
 
-        private void comboBoxSwitchMetod_SelectedIndexChanged(object sender, EventArgs e)
+        private void textBoxSizeStaffing_KeyPress(object sender, KeyPressEventArgs e)
         {
-            resizeGraphics();
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            pictureBox.Size = new Size((textBoxBinStaffNumber.Text.Length > 0 ? textBoxBinStaffNumber.Text.Length : textBoxBinNumber.Text.Length) * 40 + 20, 80);
+            pictureBox.Invalidate();
+        }
+
+        private void buttonGenerate_Click(object sender, EventArgs e)
+        {
+            if (textBoxSizeStaffing.Text.Length > 0)
+            {
+                string tempS1 = "";
+                for (int i = 0; i < Convert.ToInt32(textBoxSizeStaffing.Text); i++)
+                    tempS1 += '1';
+                string tempS2 = tempS1 + '0';
+
+                textBoxBinStaffNumber.Text = textBoxBinNumber.Text.Replace(tempS1, tempS2);
+                int lengBin = textBoxBinStaffNumber.Text.Length - textBoxBinNumber.Text.Length;
+
+                string temp = "";
+                for (int i = 0; i < 8 - lengBin; i++)
+                {
+                    temp += '0';
+                }
+                textBoxBinStaffNumber.Text = textBoxBinStaffNumber.Text.Insert(textBoxBinStaffNumber.Text.Length - lengBin, temp);
+            }
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            textBoxSizeStaffing.Text = "";
+            textBoxBinStaffNumber.Text = "";
         }
     }
 }
