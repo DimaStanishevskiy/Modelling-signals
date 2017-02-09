@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using paint;
+using Paint;
 
 namespace Modelling_signals
 {
@@ -53,14 +53,28 @@ namespace Modelling_signals
             
             paintGraphics paint = new paintGraphics(e, textBoxBinStaffNumber.Text.Length > 0 ? textBoxBinStaffNumber.Text : textBoxBinNumber.Text);
             paint.paintAxis();
+            #region govnokod
+            //if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZ") paint.paintNRZ();
+            //else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZI(1)") paint.paintNRZI(true);
+            //else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZI(0)") paint.paintNRZI(false);
+            //else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "RZ") paint.paintRZ();
+            //else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "AMI") paint.paintAMI();
+            //else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "Manchester") paint.paintManchester();
+            //else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "2B1Q") paint.paint2B1Q();
+            #endregion
+            //
+            string selectMethod = comboBoxSwitchMetod.SelectedItem.ToString();
 
-            if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZ") paint.paintNRZ();
-            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZI(1)") paint.paintNRZI(true);
-            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "NRZI(0)") paint.paintNRZI(false);
-            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "RZ") paint.paintRZ();
-            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "AMI") paint.paintAMI();
-            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "Manchester") paint.paintManchester();
-            else if (Convert.ToString(comboBoxSwitchMetod.SelectedItem) == "2B1Q") paint.paint2B1Q();
+            switch (selectMethod)
+            {
+                case "NRZ": paint.paintNRZ(); break;
+                case "NRZI(1)": paint.paintNRZI(true); break;
+                case "NRZI(0)": paint.paintNRZI(false); break;
+                case "RZ": paint.paintRZ(); break;
+                case "AMI": paint.paintAMI(); break;
+                case "Manchester": paint.paintManchester(); break;
+                case "2B1Q": paint.paint2B1Q(); break;
+            }
         }
 
         private void textBoxSizeStaffing_KeyPress(object sender, KeyPressEventArgs e)
